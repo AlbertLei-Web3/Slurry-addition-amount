@@ -18,16 +18,17 @@
         <label>固含量（%，示例：50% → 输入50）<input type="number" id="solid" step="0.1" required></label>
         <div id="solidError" class="error"></div>
     </div>
-    <div class="input-group">
-        <label>添加比例（%，示例：5% → 输入5）<input type="number" id="ratio" step="0.1" required></label>
-        <div id="ratioError" class="error"></div>
-    </div>
+
+    <!-- 固定添加比例，不再让用户输入 -->
+    <p>添加比例固定为：5.5%</p>
+
     <div class="input-group">
         <label>浆料重量（kg）<input type="number" id="weight" step="0.1" required></label>
         <div id="weightError" class="error"></div>
     </div>
+
     <button onclick="calculate()">计算添加量</button>
-    <p>计算结果：<span id="result">0.00</span> kg</p >
+    <p>计算结果：<span id="result">0.00</span> kg</p>
 
     <script>
         function validateInput(value, field) {
@@ -42,10 +43,11 @@
 
         function calculate() {
             const solid = parseFloat(document.getElementById("solid").value);
-            const ratio = parseFloat(document.getElementById("ratio").value);
+            // 添加比例固定为5.5%
+            const ratio = 5.5;
             const weight = parseFloat(document.getElementById("weight").value);
 
-            if (!validateInput(solid, "solid") || !validateInput(ratio, "ratio") || !validateInput(weight, "weight")) return;
+            if (!validateInput(solid, "solid") || !validateInput(weight, "weight")) return;
 
             const addAmount = (solid / 100) * (ratio / 100) * weight;
             document.getElementById("result").textContent = addAmount.toFixed(4);
